@@ -1,0 +1,84 @@
+{
+  "name": "nitro-starter",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "A Nitro.js starter template for TypeScript projects",
+  "author": "oiij",
+  "license": "MIT",
+  "homepage": "https://github.com/oiij/nitro-starter",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:oiij/nitro-starter.git"
+  },
+  "bugs": "https://github.com/oiij/nitro-starter/issues",
+  "keywords": [
+    "nitro-starter"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "nitro dev",
+    "build": "nitro build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepublishOnly": "pnpm build",
+    "release": "bumpp && npm publish",
+    "awe": "pnpx are-we-esm",
+    "nmi": "pnpx node-modules-inspector",
+    "start": "esno src/index.ts",
+    "test": "vitest",
+    "update:deps": "taze -w && pnpm i",
+    "type:check": "tsc --noEmit",
+    "cz": "czg",
+    "commit": "git pull && git add -A && pnpm cz && git push",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "npx simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^8.2.0",
+    "@oiij/tsconfig": "^0.0.4",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.6.2",
+    "@vitest/ui": "^4.1.5",
+    "await-to-js": "^3.0.0",
+    "bumpp": "^11.1.0",
+    "commitlint": "^21.0.0",
+    "cz-git": "^1.13.1",
+    "czg": "^1.13.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-format": "^2.0.1",
+    "jsonwebtoken": "^9.0.3",
+    "lint-staged": "^17.0.4",
+    "nitro": "3.0.260429-beta",
+    "simple-git-hooks": "^2.13.1",
+    "taze": "^19.11.0",
+    "tsdown": "^0.22.0",
+    "typescript": "^6.0.3",
+    "vitepress": "^1.6.4",
+    "vitepress-demo-plugin": "^1.5.1",
+    "vitest": "^4.1.5",
+    "zod": "^4.4.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged && pnpm type:check"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "pnpm lint:fix"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
