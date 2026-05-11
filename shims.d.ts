@@ -12,5 +12,9 @@ export {}
 declare module 'h3' {
   interface H3EventContext {
     _token: string
+    _userId: string
+    _role: string
+    _permissions: string[]
+    ws?: any
   }
 }

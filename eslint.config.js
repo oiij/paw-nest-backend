@@ -7,5 +7,6 @@ export default antfu({
   },
   ignores: [
     '.agents',
+    '.drizzle',
   ],
 })

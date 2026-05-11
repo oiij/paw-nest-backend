@@ -4,7 +4,8 @@ import * as jwtLib from 'jsonwebtoken'
 const PRIVATE_KEY = process.env.JWT_SECRET || '123456'
 export type JwtPayload = {
   userId: string
-  username: string
+  role: string
+  type?: 'refresh'
 }
 export const jwt = {
   sign<T extends JwtPayload>(data: T, expiresIn: string = '1d') {
