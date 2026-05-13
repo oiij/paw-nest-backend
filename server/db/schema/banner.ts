@@ -1,15 +1,9 @@
-import {
-  index,
-  integer,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core'
-import { bannerStatusEnum, linkTypeEnum } from './common'
+import { index, integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { bannerStatusEnum, defaultUUID, linkTypeEnum } from './common'
 
 export const banners = pgTable('banners', {
-  id: varchar('id', { length: 21 }).primaryKey(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
   title: varchar('title', { length: 100 }).notNull(),
   image: text('image').notNull(),
   link: text('link'),

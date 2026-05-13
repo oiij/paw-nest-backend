@@ -1,21 +1,13 @@
-import {
-  index,
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core'
-import { targetTypeEnum } from './common'
+import { index, pgEnum, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { defaultUUID, targetTypeEnum } from './common'
 import { users } from './user'
 
 export const reportStatusEnum = pgEnum('report_status', ['pending', 'resolved', 'dismissed'])
 
 export const reports = pgTable('reports', {
-  id: varchar('id', { length: 21 }).primaryKey(),
-  reporterId: varchar('reporter_id', { length: 21 })
-    .references(() => users.id)
-    .notNull(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
+  reporterId: varchar('reporter_id', { length: 21 }).references(() => users.id).notNull(),
   targetType: targetTypeEnum('target_type').notNull(),
   targetId: varchar('target_id', { length: 21 }).notNull(),
   reason: text('reason').notNull(),

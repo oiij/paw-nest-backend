@@ -1,4 +1,5 @@
-import { pgEnum } from 'drizzle-orm/pg-core'
+import { pgEnum, varchar } from 'drizzle-orm/pg-core'
+import { nanoid } from 'nanoid'
 
 export const roleEnum = pgEnum('role', ['user', 'rescuer', 'admin'])
 
@@ -37,3 +38,5 @@ export const chatMessageTypeEnum = pgEnum('chat_message_type', ['text', 'image',
 export const linkTypeEnum = pgEnum('link_type', ['pet', 'post', 'url', 'page'])
 
 export const bannerStatusEnum = pgEnum('banner_status', ['active', 'inactive'])
+
+export const defaultUUID = varchar('id', { length: 21 }).primaryKey().$defaultFn(() => `${nanoid()}`)

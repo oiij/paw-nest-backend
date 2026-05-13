@@ -1,19 +1,11 @@
-import {
-  index,
-  integer,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core'
-import { postStatusEnum, postTypeEnum } from './common'
+import { index, integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { defaultUUID, postStatusEnum, postTypeEnum } from './common'
 import { users } from './user'
 
 export const posts = pgTable('posts', {
-  id: varchar('id', { length: 21 }).primaryKey(),
-  userId: varchar('user_id', { length: 21 })
-    .references(() => users.id)
-    .notNull(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
+  userId: varchar('user_id', { length: 21 }).references(() => users.id).notNull(),
   title: varchar('title', { length: 200 }),
   content: text('content').notNull(),
   type: postTypeEnum('type').default('dynamic').notNull(),
@@ -31,7 +23,7 @@ export const posts = pgTable('posts', {
 }))
 
 export const postImages = pgTable('post_images', {
-  id: varchar('id', { length: 21 }).primaryKey(),
+  id: defaultUUID,
   url: text('url').notNull(),
   type: varchar('type', { length: 10 }).default('image').notNull(),
   sort: integer('sort').default(0).notNull(),
@@ -42,7 +34,7 @@ export const postImages = pgTable('post_images', {
 })
 
 export const postTags = pgTable('post_tags', {
-  id: varchar('id', { length: 21 }).primaryKey(),
+  id: defaultUUID,
   name: varchar('name', { length: 30 }).notNull(),
   postId: varchar('post_id', { length: 21 })
     .references(() => posts.id, { onDelete: 'cascade' })

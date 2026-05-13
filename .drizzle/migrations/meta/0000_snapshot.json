@@ -1,5 +1,5 @@
 {
-  "id": "04189fdf-c564-4163-9ed5-d394b8f1ca20",
+  "id": "36f89335-2ed6-4afe-83bc-a42652a5e048",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -12,6 +12,12 @@
           "name": "id",
           "type": "varchar(21)",
           "primaryKey": true,
+          "notNull": true
+        },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
           "notNull": true
         },
         "user_id": {
@@ -232,6 +238,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
         "title": {
           "name": "title",
           "type": "varchar(100)",
@@ -447,6 +459,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
         "user1_id": {
           "name": "user1_id",
           "type": "varchar(21)",
@@ -551,6 +569,12 @@
           "name": "id",
           "type": "varchar(21)",
           "primaryKey": true,
+          "notNull": true
+        },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
           "notNull": true
         },
         "user_id": {
@@ -674,6 +698,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
         "user_id": {
           "name": "user_id",
           "type": "varchar(21)",
@@ -780,6 +810,12 @@
           "name": "id",
           "type": "varchar(21)",
           "primaryKey": true,
+          "notNull": true
+        },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
           "notNull": true
         },
         "sender_id": {
@@ -1031,6 +1067,12 @@
           "name": "id",
           "type": "varchar(21)",
           "primaryKey": true,
+          "notNull": true
+        },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
           "notNull": true
         },
         "name": {
@@ -1387,6 +1429,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
         "user_id": {
           "name": "user_id",
           "type": "varchar(21)",
@@ -1545,6 +1593,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
         "reporter_id": {
           "name": "reporter_id",
           "type": "varchar(21)",
@@ -1673,11 +1727,11 @@
           "primaryKey": true,
           "notNull": true
         },
-        "uuid": {
-          "name": "uuid",
-          "type": "text",
+        "serial_id": {
+          "name": "serial_id",
+          "type": "serial",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "open_id": {
           "name": "open_id",
@@ -1800,13 +1854,6 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "users_uuid_unique": {
-          "name": "users_uuid_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "uuid"
-          ]
-        },
         "users_open_id_unique": {
           "name": "users_open_id_unique",
           "nullsNotDistinct": false,

@@ -1,23 +1,13 @@
-import {
-  index,
-  integer,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core'
-import { commentStatusEnum } from './common'
+import { index, integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { commentStatusEnum, defaultUUID } from './common'
 import { posts } from './post'
 import { users } from './user'
 
 export const comments = pgTable('comments', {
-  id: varchar('id', { length: 21 }).primaryKey(),
-  userId: varchar('user_id', { length: 21 })
-    .references(() => users.id)
-    .notNull(),
-  postId: varchar('post_id', { length: 21 })
-    .references(() => posts.id)
-    .notNull(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
+  userId: varchar('user_id', { length: 21 }).references(() => users.id).notNull(),
+  postId: varchar('post_id', { length: 21 }).references(() => posts.id).notNull(),
   parentId: varchar('parent_id', { length: 21 }),
   content: text('content').notNull(),
   likeCount: integer('like_count').default(0).notNull(),

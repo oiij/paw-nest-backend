@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm'
-import { nanoid } from 'nanoid'
 import { db } from '~/db'
 import { users } from '~/db/schema'
 import { loginFailCache, smsCache } from '~/utils/caching'
@@ -27,16 +26,14 @@ export async function createUser(data: {
   phone?: string
   unionId?: string
 }) {
-  const id = nanoid(21)
   const now = new Date()
-  await db.insert(users).values({
-    id,
+  const result = await db.insert(users).values({
     ...data,
     lastLoginAt: now,
     createdAt: now,
     updatedAt: now,
-  })
-  return findUserById(id)
+  }).returning({ id: users.id })
+  return findUserById(result[0]!.id)
 }
 
 export async function updateUserLogin(userId: string) {

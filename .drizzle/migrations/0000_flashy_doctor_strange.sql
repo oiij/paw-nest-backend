@@ -16,6 +16,7 @@ CREATE TYPE "public"."user_status" AS ENUM('active', 'banned', 'deleted');--> st
 CREATE TYPE "public"."report_status" AS ENUM('pending', 'resolved', 'dismissed');--> statement-breakpoint
 CREATE TABLE "adoptions" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"user_id" varchar(21) NOT NULL,
 	"pet_id" varchar(21) NOT NULL,
 	"status" "adoption_status" DEFAULT 'pending' NOT NULL,
@@ -40,6 +41,7 @@ CREATE TABLE "adoptions" (
 --> statement-breakpoint
 CREATE TABLE "banners" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"title" varchar(100) NOT NULL,
 	"image" text NOT NULL,
 	"link" text,
@@ -64,6 +66,7 @@ CREATE TABLE "chat_messages" (
 --> statement-breakpoint
 CREATE TABLE "chat_rooms" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"user1_id" varchar(21) NOT NULL,
 	"user2_id" varchar(21) NOT NULL,
 	"last_message" text,
@@ -74,6 +77,7 @@ CREATE TABLE "chat_rooms" (
 --> statement-breakpoint
 CREATE TABLE "comments" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"user_id" varchar(21) NOT NULL,
 	"post_id" varchar(21) NOT NULL,
 	"parent_id" varchar(21),
@@ -86,6 +90,7 @@ CREATE TABLE "comments" (
 --> statement-breakpoint
 CREATE TABLE "favorites" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"user_id" varchar(21) NOT NULL,
 	"target_type" "target_type" NOT NULL,
 	"target_id" varchar(21) NOT NULL,
@@ -94,6 +99,7 @@ CREATE TABLE "favorites" (
 --> statement-breakpoint
 CREATE TABLE "messages" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"sender_id" varchar(21) NOT NULL,
 	"receiver_id" varchar(21) NOT NULL,
 	"type" "message_type" NOT NULL,
@@ -120,6 +126,7 @@ CREATE TABLE "pet_tags" (
 --> statement-breakpoint
 CREATE TABLE "pets" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"name" varchar(50) NOT NULL,
 	"species" "species" NOT NULL,
 	"breed" varchar(50),
@@ -159,6 +166,7 @@ CREATE TABLE "post_tags" (
 --> statement-breakpoint
 CREATE TABLE "posts" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"user_id" varchar(21) NOT NULL,
 	"title" varchar(200),
 	"content" text NOT NULL,
@@ -175,6 +183,7 @@ CREATE TABLE "posts" (
 --> statement-breakpoint
 CREATE TABLE "reports" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"serial_id" serial NOT NULL,
 	"reporter_id" varchar(21) NOT NULL,
 	"target_type" "target_type" NOT NULL,
 	"target_id" varchar(21) NOT NULL,
@@ -188,7 +197,7 @@ CREATE TABLE "reports" (
 --> statement-breakpoint
 CREATE TABLE "users" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
-	"uuid" text,
+	"serial_id" serial NOT NULL,
 	"open_id" varchar(64) NOT NULL,
 	"union_id" varchar(64),
 	"phone" varchar(20),
@@ -202,7 +211,6 @@ CREATE TABLE "users" (
 	"last_login_at" timestamp,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "users_uuid_unique" UNIQUE("uuid"),
 	CONSTRAINT "users_open_id_unique" UNIQUE("open_id"),
 	CONSTRAINT "users_phone_unique" UNIQUE("phone")
 );

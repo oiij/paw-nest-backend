@@ -55,9 +55,9 @@ export default defineHandler(async (event) => {
     return error('账号已被封禁', ErrorCodes.USER_BANNED)
   }
 
-  await updateUserLogin(user.uuid)
+  await updateUserLogin(user.id)
 
-  const tokens = generateTokens(user.uuid, user.role)
+  const tokens = generateTokens(user.id, user.role)
 
   return success({
     ...tokens,

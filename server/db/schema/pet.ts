@@ -1,19 +1,10 @@
-import {
-  boolean,
-  index,
-  integer,
-  pgTable,
-  real,
-  text,
-  timestamp,
-  uniqueIndex,
-  varchar,
-} from 'drizzle-orm/pg-core'
-import { petGenderEnum, petStatusEnum, speciesEnum } from './common'
+import { boolean, index, integer, pgTable, real, serial, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core'
+import { defaultUUID, petGenderEnum, petStatusEnum, speciesEnum } from './common'
 import { users } from './user'
 
 export const pets = pgTable('pets', {
-  id: varchar('id', { length: 21 }).primaryKey(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
   name: varchar('name', { length: 50 }).notNull(),
   species: speciesEnum('species').notNull(),
   breed: varchar('breed', { length: 50 }),
@@ -31,9 +22,7 @@ export const pets = pgTable('pets', {
   status: petStatusEnum('status').default('pending').notNull(),
   viewCount: integer('view_count').default(0).notNull(),
   adoptFee: integer('adopt_fee'),
-  publisherId: varchar('publisher_id', { length: 21 })
-    .references(() => users.id)
-    .notNull(),
+  publisherId: varchar('publisher_id', { length: 21 }).references(() => users.id).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 }, table => ({
@@ -43,7 +32,7 @@ export const pets = pgTable('pets', {
 }))
 
 export const petImages = pgTable('pet_images', {
-  id: varchar('id', { length: 21 }).primaryKey(),
+  id: defaultUUID,
   url: text('url').notNull(),
   sort: integer('sort').default(0).notNull(),
   petId: varchar('pet_id', { length: 21 })
@@ -53,7 +42,7 @@ export const petImages = pgTable('pet_images', {
 })
 
 export const petTags = pgTable('pet_tags', {
-  id: varchar('id', { length: 21 }).primaryKey(),
+  id: defaultUUID,
   name: varchar('name', { length: 30 }).notNull(),
   petId: varchar('pet_id', { length: 21 })
     .references(() => pets.id, { onDelete: 'cascade' })

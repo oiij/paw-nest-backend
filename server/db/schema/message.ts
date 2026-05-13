@@ -1,23 +1,12 @@
-import {
-  boolean,
-  index,
-  jsonb,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core'
-import { messageTypeEnum } from './common'
+import { boolean, index, jsonb, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { defaultUUID, messageTypeEnum } from './common'
 import { users } from './user'
 
 export const messages = pgTable('messages', {
-  id: varchar('id', { length: 21 }).primaryKey(),
-  senderId: varchar('sender_id', { length: 21 })
-    .references(() => users.id)
-    .notNull(),
-  receiverId: varchar('receiver_id', { length: 21 })
-    .references(() => users.id)
-    .notNull(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
+  senderId: varchar('sender_id', { length: 21 }).references(() => users.id).notNull(),
+  receiverId: varchar('receiver_id', { length: 21 }).references(() => users.id).notNull(),
   type: messageTypeEnum('type').notNull(),
   title: varchar('title', { length: 200 }),
   content: text('content').notNull(),

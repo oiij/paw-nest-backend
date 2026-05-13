@@ -1,10 +1,9 @@
-import { index, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
-import { nanoid } from 'nanoid'
-import { roleEnum, userStatusEnum } from './common'
+import { index, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { defaultUUID, roleEnum, userStatusEnum } from './common'
 
 export const users = pgTable('users', {
-  id: varchar('id', { length: 21 }).primaryKey().$defaultFn(() => nanoid()),
-  uuid: text('uuid').$defaultFn(() => `uuid_${nanoid()}`).notNull().unique(),
+  id: defaultUUID,
+  serialId: serial('serial_id'),
   openId: varchar('open_id', { length: 64 }).notNull().unique(),
   unionId: varchar('union_id', { length: 64 }),
   phone: varchar('phone', { length: 20 }).unique(),
