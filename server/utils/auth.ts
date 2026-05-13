@@ -2,8 +2,8 @@ import { eq } from 'drizzle-orm'
 import { nanoid } from 'nanoid'
 import { db } from '~/db'
 import { users } from '~/db/schema'
+import { loginFailCache, smsCache } from '~/utils/caching'
 import { jwt } from '~/utils/jwt'
-import { cacheDel, cacheGet, CacheKeys, cacheSet } from '~/utils/redis'
 
 export async function findUserByPhone(phone: string) {
   const result = await db.select().from(users).where(eq(users.phone, phone)).limit(1)
@@ -58,41 +58,38 @@ export function generateTokens(userId: string, role: string) {
 }
 
 export async function sendSmsCode(phone: string): Promise<string> {
-  const cacheKey = CacheKeys.smsCode(phone)
-  const existing = await cacheGet<string>(cacheKey)
+  const existing = await smsCache.get(phone)
   if (existing) {
     return existing
   }
   const code = Math.random().toString().slice(2, 8)
-  await cacheSet(cacheKey, code, 300)
+
+  await smsCache.set(phone, code)
   return code
 }
 
 export async function verifySmsCode(phone: string, code: string): Promise<boolean> {
-  const cacheKey = CacheKeys.smsCode(phone)
-  const cached = await cacheGet<string>(cacheKey)
-  if (!cached || cached !== code) {
+  const cached = await smsCache.get(phone)
+
+  if (!cached || `${cached}` !== code) {
     return false
   }
-  await cacheDel(cacheKey)
+  await smsCache.del(phone)
   return true
 }
 
 export async function getLoginFailCount(phone: string): Promise<number> {
-  const cacheKey = CacheKeys.loginFail(phone)
-  const count = await cacheGet<number>(cacheKey)
+  const count = await loginFailCache.get(phone)
   return count || 0
 }
 
 export async function incrementLoginFail(phone: string): Promise<number> {
-  const cacheKey = CacheKeys.loginFail(phone)
   const count = await getLoginFailCount(phone)
   const newCount = count + 1
-  await cacheSet(cacheKey, newCount, 1800)
+  await loginFailCache.set(phone, newCount)
   return newCount
 }
 
 export async function resetLoginFail(phone: string): Promise<void> {
-  const cacheKey = CacheKeys.loginFail(phone)
-  await cacheDel(cacheKey)
+  await loginFailCache.del(phone)
 }

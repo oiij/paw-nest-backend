@@ -7,22 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      drizzle-orm:
-        specifier: ^0.45.2
-        version: 0.45.2(postgres@3.4.9)
-      ioredis:
-        specifier: ^5.10.1
-        version: 5.10.1
-      nanoid:
-        specifier: ^5.1.11
-        version: 5.1.11
-      postgres:
-        specifier: ^3.4.9
-        version: 3.4.9
-      qiniu:
-        specifier: ^7.15.2
-        version: 7.15.2
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^8.2.0
@@ -54,24 +38,42 @@ importers:
       czg:
         specifier: ^1.13.1
         version: 1.13.1
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       drizzle-kit:
         specifier: ^0.31.10
         version: 0.31.10
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.2(postgres@3.4.9)
       eslint:
         specifier: ^10.3.0
         version: 10.3.0(jiti@2.7.0)
       eslint-plugin-format:
         specifier: ^2.0.1
         version: 2.0.1(eslint@10.3.0(jiti@2.7.0))
+      ioredis:
+        specifier: ^5.10.1
+        version: 5.10.1
       jsonwebtoken:
         specifier: ^9.0.3
         version: 9.0.3
       lint-staged:
         specifier: ^17.0.4
         version: 17.0.4
+      nanoid:
+        specifier: ^5.1.11
+        version: 5.1.11
       nitro:
         specifier: 3.0.260429-beta
-        version: 3.0.260429-beta(drizzle-orm@0.45.2(postgres@3.4.9))(ioredis@5.10.1)(jiti@2.7.0)(rollup@4.60.3)(vite@5.4.21(@types/node@25.6.2))
+        version: 3.0.260429-beta(dotenv@17.4.2)(drizzle-orm@0.45.2(postgres@3.4.9))(ioredis@5.10.1)(jiti@2.7.0)(rollup@4.60.3)(vite@5.4.21(@types/node@25.6.2))
+      postgres:
+        specifier: ^3.4.9
+        version: 3.4.9
+      qiniu:
+        specifier: ^7.15.2
+        version: 7.15.2
       simple-git-hooks:
         specifier: ^2.13.1
         version: 2.13.1
@@ -81,6 +83,9 @@ importers:
       tsdown:
         specifier: ^0.22.0
         version: 0.22.0(tsx@4.21.0)(typescript@6.0.3)
+      tsx:
+        specifier: ^4.21.0
+        version: 4.21.0
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -2191,6 +2196,10 @@ packages:
   dot-prop@5.3.0:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
+
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
+    engines: {node: '>=12'}
 
   drizzle-kit@0.31.10:
     resolution: {integrity: sha512-7OZcmQUrdGI+DUNNsKBn1aW8qSoKuTH7d0mYgSP8bAzdFzKoovxEFnoGQp2dVs82EOJeYycqRtciopszwUf8bw==}
@@ -5861,6 +5870,8 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
+  dotenv@17.4.2: {}
+
   drizzle-kit@0.31.10:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
@@ -7138,7 +7149,7 @@ snapshots:
 
   nf3@0.3.17: {}
 
-  nitro@3.0.260429-beta(drizzle-orm@0.45.2(postgres@3.4.9))(ioredis@5.10.1)(jiti@2.7.0)(rollup@4.60.3)(vite@5.4.21(@types/node@25.6.2)):
+  nitro@3.0.260429-beta(dotenv@17.4.2)(drizzle-orm@0.45.2(postgres@3.4.9))(ioredis@5.10.1)(jiti@2.7.0)(rollup@4.60.3)(vite@5.4.21(@types/node@25.6.2)):
     dependencies:
       consola: 3.4.2
       crossws: 0.4.5(srvx@0.11.15)
@@ -7155,6 +7166,7 @@ snapshots:
       unenv: 2.0.0-rc.24
       unstorage: 2.0.0-alpha.7(db0@0.3.4(drizzle-orm@0.45.2(postgres@3.4.9)))(ioredis@5.10.1)(ofetch@2.0.0-alpha.3)
     optionalDependencies:
+      dotenv: 17.4.2
       jiti: 2.7.0
       rollup: 4.60.3
       vite: 5.4.21(@types/node@25.6.2)

@@ -4,7 +4,7 @@ import { sendSmsCode } from '~/utils/auth'
 import { error, ErrorCodes, success } from '~/utils/response'
 
 const schema = object({
-  phone: string().length(11),
+  phone: string().regex(/^(\+?86)?1[3-9]\d{9}$/),
 })
 
 export default defineHandler(async (event) => {

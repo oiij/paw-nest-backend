@@ -188,6 +188,7 @@ CREATE TABLE "reports" (
 --> statement-breakpoint
 CREATE TABLE "users" (
 	"id" varchar(21) PRIMARY KEY NOT NULL,
+	"uuid" text,
 	"open_id" varchar(64) NOT NULL,
 	"union_id" varchar(64),
 	"phone" varchar(20),
@@ -201,6 +202,7 @@ CREATE TABLE "users" (
 	"last_login_at" timestamp,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "users_uuid_unique" UNIQUE("uuid"),
 	CONSTRAINT "users_open_id_unique" UNIQUE("open_id"),
 	CONSTRAINT "users_phone_unique" UNIQUE("phone")
 );

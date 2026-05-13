@@ -1,5 +1,5 @@
 import process from 'node:process'
-import * as jwtLib from 'jsonwebtoken'
+import jwtLib from 'jsonwebtoken'
 
 const PRIVATE_KEY = process.env.JWT_SECRET || '123456'
 export type JwtPayload = {

@@ -1,5 +1,5 @@
 {
-  "id": "3227a2dc-0855-4a00-a3cb-23f6a17c8617",
+  "id": "04189fdf-c564-4163-9ed5-d394b8f1ca20",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1673,6 +1673,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "uuid": {
+          "name": "uuid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "open_id": {
           "name": "open_id",
           "type": "varchar(64)",
@@ -1794,6 +1800,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_uuid_unique": {
+          "name": "users_uuid_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "uuid"
+          ]
+        },
         "users_open_id_unique": {
           "name": "users_open_id_unique",
           "nullsNotDistinct": false,

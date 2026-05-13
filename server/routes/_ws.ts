@@ -3,8 +3,8 @@ import { nanoid } from 'nanoid'
 import { defineWebSocketHandler } from 'nitro'
 import { db } from '~/db'
 import { chatMessages, chatRooms } from '~/db/schema'
+import { onlineCache } from '~/utils/caching'
 import { jwt } from '~/utils/jwt'
-import { cacheDel, CacheKeys, cacheSet } from '~/utils/redis'
 
 const peerMap = new Map<string, any>()
 
@@ -23,7 +23,7 @@ export default defineWebSocketHandler({
           const decoded = await jwt.verify(payload.token)
           peer._userId = decoded.userId
           peer._role = decoded.role
-          await cacheSet(CacheKeys.online(decoded.userId), peer.id, 300)
+          await onlineCache.set(decoded.userId, peer.id)
           peer.send(JSON.stringify({ type: 'auth:success' }))
         }
         catch {
@@ -125,7 +125,7 @@ export default defineWebSocketHandler({
     const id = peer.id
     peerMap.delete(id)
     if (peer._userId) {
-      await cacheDel(CacheKeys.online(peer._userId))
+      await onlineCache.del(peer._userId)
     }
   },
   error(_peer, error) {

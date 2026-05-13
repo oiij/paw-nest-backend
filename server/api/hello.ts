@@ -1,5 +1,5 @@
 import { defineHandler } from 'nitro'
 
-export default defineHandler(() => {
+export default defineHandler(async () => {
   return 'Nitro is amazing!'
 })

@@ -13,7 +13,7 @@ import {
 import { error, ErrorCodes, success } from '~/utils/response'
 
 const schema = object({
-  phone: string().length(11),
+  phone: string().regex(/^(\+?86)?1[3-9]\d{9}$/),
   code: string().length(6),
 })
 
@@ -55,9 +55,9 @@ export default defineHandler(async (event) => {
     return error('账号已被封禁', ErrorCodes.USER_BANNED)
   }
 
-  await updateUserLogin(user.id)
+  await updateUserLogin(user.uuid)
 
-  const tokens = generateTokens(user.id, user.role)
+  const tokens = generateTokens(user.uuid, user.role)
 
   return success({
     ...tokens,
